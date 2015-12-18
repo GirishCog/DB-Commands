@@ -1,0 +1,11 @@
+sudo /usr/local/mysql/bin/mysql -u root -p
+
+
+
+sudo /usr/local/mysql/support-files/mysql.server start
+
+sudo /usr/local/mysql/support-files/mysql.server stop
+
+create database mConnDB;
+
+

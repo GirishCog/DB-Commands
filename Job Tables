@@ -1,0 +1,131 @@
+CREATE TABLE job_test1
+(
+job_Id varchar(255) NOT NULL,
+job_type varchar(255) NOT NULL,
+created_date datetime,
+Notifications varchar(255),
+PRIMARY KEY (job_Id)
+)
+
+select * from job_test1
+
+drop table job_test1
+
+
+CREATE TABLE job_apps_test1
+(
+job_Id varchar(255) NOT NULL,
+Apps varchar(255) NOT NULL,
+branch varchar(255),
+created_date datetime,
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+)
+
+Select * from job_apps_test1
+
+
+
+CREATE TABLE job_activity_test1
+(
+job_Id varchar(255) NOT NULL,
+activity varchar(255) NOT NULL,
+activity_info varchar(255),
+created_date datetime,
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+)
+
+select * from job_test1
+
+CREATE TABLE activities
+(
+act_Id int NOT NULL,
+activity_name varchar(255) NOT NULL,
+activity_info varchar(255),
+created_date datetime,
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+)
+
+
+CREATE TABLE job_history_CornJobs
+(
+job_Id varchar(255) NOT NULL,
+Apps varchar(255) NOT NULL,
+Activity varchar(255),
+status varchar(255),
+Error_message varchar(255),
+created_date datetime,
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+)
+
+drop table job_history_CornJobs
+
+
+insert into job_test1 (job_Id, job_type, created_date,Notifications) 
+values ('Girish1','Manual','2004-05-05 23:56:25','Demo Group')
+
+insert into job_apps_test1 (job_Id, Apps,branch,created_date) 
+values 
+ ('Girish1','myApp2','master'),
+	   ('Girish1','myApp3','master')
+	  
+insert into job_activity_test1 (job_Id, activity,activity_info) 
+values ('Girish1','CodeRelease','Git'),
+('Girish1','UnitTest',''),('Girish1','build',''),
+('Girish1','deploy','Dev:127.0.0.1,127.0.0.2')
+
+CREATE TABLE job_history_CornJobs
+(
+job_Id varchar(255) NOT NULL,
+run_id varchar(255) NOT NULL,
+run_date datetime,
+Apps varchar(255) NOT NULL,
+Activity varchar(255),
+status varchar(255),
+Error_message varchar(255),
+Report_locations varchar(255),
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+) 
+
+CREATE TABLE job_history_OneTime
+(
+job_Id varchar(255) NOT NULL,
+run_date datetime,
+Apps varchar(255) NOT NULL,
+Activity varchar(255),
+status varchar(255),
+Error_message varchar(255),
+Report_locations varchar(255),
+FOREIGN KEY (job_Id) REFERENCES job_test1(job_Id)
+) 
+
+select * from job_history_OneTime
+
+drop table job_history_CornJobs
+
+select * from job_history_CornJobs where  job_Id ='1045'
+
+delete  from job_history_CornJobs where job_Id ='1030'
+
+insert into job_history_CornJobs (job_Id, run_id,run_date,Apps,Activity,status,Error_message,Report_locations) 
+values (?,?,?,?,?,?,?,?)
+
+select * from  job_history_CornJobs;
+
+
+delete from job_activity_test1;
+delete from job_apps_test1;
+delete  from job_test1 ;
+
+select * from job_apps_test1 where ;
+
+update job_history_CornJobs set status ='Success' where Apps in ('myApp1','myApp2','myApp3')
+
+select act.job_id,app.apps as app,act.activity as actvity from job_apps_test1 app 
+join job_activity_test1 act 
+where act.job_id= app.job_id and app.job_id='1030' order by app.apps
+
+
+select job_Id,run_id,Apps,Activity,status from job_history_CornJobs where  job_Id ='1045' and run_id = 'runID1'
+
+
+
